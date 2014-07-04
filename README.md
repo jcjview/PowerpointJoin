@@ -1,3 +1,30 @@
+####forked by jcjview
+
+#all slides in  one ppt
+
+##simple to work##
+
+
+I have a very simple requirement that to have all slides in only one ppt.
+So I work on this script to meet my requirement.
+
+Put all the ppts in root folder, then run AllSlideInOne.pl.All in start.pptx.
+
+That's it.
+
+Notes:
+0.1 
+	
+
+- Support Filenames with Chinese Charactors(GBK).
+- Sometimes Win32 OLE will Crack.I don't know why.
+- Don't suppert ppt sorting.
+	
+
+Thanks original author.
+
+----------
+ 
 ## About
 I am grateful that the Lord Jesus Christ has given me the ability to write something useful that helps others. He has also given me a job that I enjoy, so I am happy to make this available for free.
 

@@ -8,8 +8,10 @@ use autodie qw(open close);
 use Win32::PowerPoint;
 use Win32::OLE::Const 'Microsoft PowerPoint';
 
-our $AUTOLOAD;
+use Cwd;
 
+our $AUTOLOAD;
+my $start="start.pptx";
 sub merge {
     my ($config_file, $start_with, $output) = @_;
     my $config = &parse_config($config_file);
@@ -29,13 +31,14 @@ sub parse_config {
         next if $line =~ /^$/ || $line =~ /^[#;]/;
         if ($line =~ /^file=(.+)$/) {
             $current_file = $1;
+            $config{$current_file}{slides} = 0;#if configFile does not contain slides info,set to copy all slides.
         } elsif ( $line =~ /^slides=(.+)$/) {
             $config{$current_file}{slides} = $1;
         } else {
             die "Unrecognized line in $file $line";
         }
     }
-    return \%config;
+    return \%config;#return the File&Slides list 
 }
 
 
@@ -46,8 +49,8 @@ sub parse_config {
 # $ppt->Slides
 
 sub process_charts {
-    my ($config, $opts) = @_;
-
+    my ($config, $opts) = @_;   #$config is the File&Slides list
+ 
     my $start_with = $opts->{start_with} || undef;
     my $output     = $opts->{output}     || undef;
     if ($start_with && $output) {
@@ -55,16 +58,16 @@ sub process_charts {
     }
 
     my $save_file = $start_with || $output;
-    $save_file =~ s{\/}{\\}g;
+    $save_file =~ s{\/}{\\}g;#change F:/ to F:\\
 
-    my %config = %$config;
+    my %config = %$config;  #$config is the File&Slides list
     my $pp = Win32::PowerPoint->new;
 
     # Get a count of the slides
-    foreach my $key ( sort keys %config) {
+    foreach my $key ( sort keys %config) {# to get count of every pptFile's slides
         my $file = $key;
         #$file =~ s{\\}{\\\\}g;
-        $file =~ s{\/}{\\\\}g;
+        $file =~ s{\/}{\\\\}g;  #change c:\1 to c:\\1 but why?
         print "Opening file $file\n";
         if (! -r $file) {
             die "Can't find file $file\n";
@@ -95,7 +98,7 @@ sub process_charts {
         # app.Slides.InsertFromFile("filename", "index", "slideStart", "slideend")
         
         my $last = $ppt->Slides->Count;
-        if (! exists $config{$key}{slides} ) {
+        if (! exists $config{$key}{slides} || $config{$key}{slides} eq 0 ) {
             print "   > inserting all (1-$count)\n";
             my $n_inserted = $ppt->Slides->InsertFromFile($file, $last, 1, $count);
             if ( ! $n_inserted ) {
@@ -132,7 +135,7 @@ sub process_charts {
                     print "End:   $end\n";
                     exit;
                 }
-                my $n_inserted = $ppt->Slides->InsertFromFile($file, $last1, $start, $end);
+                my $n_inserted = $ppt->Slides->InsertFromFile($file, $last1, $start, $end);#insert slides from ppt file to ppt from slide start to end 
                 print "   > inserted $n_inserted slides (range $range)\n";
                 if ( ! $n_inserted ) {
                     print "Error: No slides were inserted: " . Win32::OLE->LastError() . "\n";
@@ -201,6 +204,22 @@ sub AUTOLOAD {
         return $retval;
     }
 }
+
+sub getAllFile{
+	my $file; 
+	my @dir;
+	my $fileList;
+	my $dir = Cwd->getcwd; 
+	opendir (DIR, $dir) or die "can’t open the directory!"; 
+	@dir = readdir DIR; 
+	foreach $file (@dir) {
+		 if ( $file =~ /\.pptx/ and not $file=~/$start/){
+		 	 $fileList.=";".$file;
+		 } 
+	}
+	return ($dir,$fileList);
+}
+
 
 
 1;
