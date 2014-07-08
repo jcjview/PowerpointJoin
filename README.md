@@ -12,6 +12,23 @@ Put all the ppts in root folder, then run AllSlideInOne.pl.All in start.pptx.
 
 That's it.
 
+---
+
+Notes:
+0.2     Date:2014-7-8
+
+- Support .ppt files.
+- Inserting keeps source formatting by modify reg.
+
+To keep source ppts formatting you need to Modify the registry.You can get it in MS website [support en](http://support.microsoft.com/kb/2433043/en "support.microsoft.com"). for Chinese :[如何改注册表，微软网站](http://support.microsoft.com/kb/2433043/zh-cn).
+
+###I wrote a *.reg file in /Win32/InsertSlideFromFileKeepSourceFormatting.reg.You can just run this file to import reg.
+ ---
+
+
+
+
+
 Notes:
 0.1 
 	
