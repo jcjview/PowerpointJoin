@@ -213,7 +213,7 @@ sub getAllFile{
 	opendir (DIR, $dir) or die "can’t open the directory!"; 
 	@dir = readdir DIR; 
 	foreach $file (@dir) {
-		 if ( $file =~ /\.pptx/ and not $file=~/$start/){
+		 if ( $file =~ /\.ppt/ and not $file=~/$start/){
 		 	 $fileList.=";".$file;
 		 } 
 	}
