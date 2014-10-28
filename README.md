@@ -4,7 +4,15 @@
 
 ##simple to work##
 
+Notes:
+0.2     Date:2014-10-28
 
+perl script may have some problem with perl win32 OLE.So I use powerpoint VBA to refactored this script. 
+
+You can check code in userform3.frm. And there is no virus at all.
+
+use RunAllInOne_plus.pptm run MACRO join to load.
+---
 I have a very simple requirement that to have all slides in only one ppt.
 So I work on this script to meet my requirement.
 
