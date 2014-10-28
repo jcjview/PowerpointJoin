@@ -7,7 +7,7 @@
 Notes:
 0.2     Date:2014-10-28
 
-perl script may have some problem with perl win32 OLE.So I use powerpoint VBA to refactored this script. 
+Perl script may have some problem with perl win32 OLE.So I use powerpoint VBA to refactore this script. 
 
 You can check code in userform3.frm. And there is no virus at all.
 
