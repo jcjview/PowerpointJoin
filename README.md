@@ -5,13 +5,16 @@
 ##simple to work##
 
 Notes:
-0.2     Date:2014-10-28
+0.3     Date:2014-10-28
 
 Perl script may have some problem with perl win32 OLE.So I use powerpoint VBA to refactore this script. 
 
 You can check code in userform3.frm. And there is no virus at all.
 
 use RunAllInOne_plus.pptm run MACRO join to load.
+
+It works in office 2013 and office 2010 in  windows XP win7 (X86) .But it has a problem that can't copy images when run in office 2007. 
+
 ---
 I have a very simple requirement that to have all slides in only one ppt.
 So I work on this script to meet my requirement.
